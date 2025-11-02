@@ -5,6 +5,7 @@ import type { Document, ListDocumentsResponse } from '../model/types'
 export const documentsAPI = createApi({
     reducerPath: 'documentsAPI',
     baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}/documents` }),
+    tagTypes: ['Document'],
     endpoints: (builder) => ({
         listDocuments: builder.query<Document[], void>({
             query: () => ({
@@ -14,14 +15,23 @@ export const documentsAPI = createApi({
                 },
             }),
             transformResponse: (data: ListDocumentsResponse) => data.documents,
+            providesTags: ['Document'],
         }),
         uploadDocument: builder.mutation({
             query: (body) => ({
                 url: '/upload',
-                body,
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${AUTH_TOKEN}`,
+                },
+                body: body,
             }),
+            invalidatesTags: ['Document'],
         }),
     }),
 })
 
-export const { useListDocumentsQuery: useListDocuments } = documentsAPI
+export const {
+    useListDocumentsQuery: useListDocuments,
+    useUploadDocumentMutation: useUploadDocument,
+} = documentsAPI
