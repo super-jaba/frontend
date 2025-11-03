@@ -1,8 +1,13 @@
-.app {
+
+.uploadDocumentForm {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: var(--small-gap);
     flex-direction: column;
-    padding: 1rem;
-    gap: var(--basic-gap);
+}
+
+.button {
+    width: 100%;
+    font-weight: 600;
 }

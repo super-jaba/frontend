@@ -13,3 +13,10 @@ type DocumentProcessStatus = 'created' | 'failed' | 'queued' | 'ready'
 export interface ListDocumentsResponse {
     documents: Document[]
 }
+
+export interface UploadDocumentError {
+    data: {
+        detail: string
+    }
+    status: number
+}

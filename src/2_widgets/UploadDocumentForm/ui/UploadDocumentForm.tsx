@@ -1,26 +1,32 @@
-import { Upload } from 'antd'
-import { InboxOutlined } from '@ant-design/icons'
-import { useUploadDocument } from '@/4_entities/Documents'
+import { Button, Spin, Upload } from 'antd'
+import { InboxOutlined, LoadingOutlined } from '@ant-design/icons'
+
+import cls from './UploadDocumentForm.module.css'
+import { useUpload } from '@/3_features/UploadDocument/lib/useUpload.ts'
+
 const { Dragger } = Upload
 
 export const UploadDocumentForm = () => {
-    const [useUpload] = useUploadDocument()
-
-    const handler = (file: any) => {
-        const formData = new FormData()
-        formData.append('file', file)
-        useUpload(formData)
-        return false // do not send request automatically
-    }
+    const { draggerProps, onClick, contextHolder, isLoading } = useUpload()
 
     return (
-        <Dragger beforeUpload={(file) => handler(file)}>
-            <p className="ant-upload-drag-icon">
-                <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">
-                Click or drag file to this area to upload
-            </p>
-        </Dragger>
+        <div className={cls.uploadDocumentForm}>
+            <Dragger {...draggerProps}>
+                <p className="ant-upload-drag-icon">
+                    <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">
+                    Click or drag file to this area to upload PDF file
+                </p>
+            </Dragger>
+            <Button className={cls.button} onClick={onClick}>
+                {isLoading ? (
+                    <Spin indicator={<LoadingOutlined spin />} size="small" />
+                ) : (
+                    'Upload'
+                )}
+            </Button>
+            {contextHolder}
+        </div>
     )
 }
