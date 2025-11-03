@@ -2,7 +2,7 @@ import { Button, Spin, Upload } from 'antd'
 import { InboxOutlined, LoadingOutlined } from '@ant-design/icons'
 
 import cls from './UploadDocumentForm.module.css'
-import { useUpload } from '@/3_features/UploadDocument/lib/useUpload.ts'
+import { useUpload } from '@/3_features/UploadDocument'
 
 const { Dragger } = Upload
 
