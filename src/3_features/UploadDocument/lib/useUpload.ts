@@ -2,7 +2,7 @@ import { useUploadDocument } from '@/4_entities/Documents'
 import { useState } from 'react'
 import { message, type UploadFile } from 'antd'
 import type { UploadDocumentError } from '@/4_entities/Documents/model/types.ts'
-import { validatePDFFile } from '@/5_shared/lib/validateFile.ts'
+import { validatePDFFile } from '@/5_shared/lib/utls/validateFile'
 
 // think about how to make hook easier and more readable
 export const useUpload = () => {
