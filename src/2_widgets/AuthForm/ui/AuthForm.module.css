@@ -1,6 +1,4 @@
-
 .loginForm {
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,15 +7,13 @@
     padding: 5rem;
     border-radius: 25px;
     gap: var(--small-gap);
-
 }
 
 .icon {
-    font-size: 150px;
+    font-size: 20px;
 }
 
 .button {
     width: 400px;
     font-weight: 600;
-
 }

@@ -8,10 +8,10 @@ export const AuthForm = () => {
 
     return (
         <div className={cls.loginForm}>
-            <GithubOutlined className={cls.icon} />
             <Typography.Title level={2}>Sign in</Typography.Title>
             <Button className={cls.button} onClick={redirect}>
-                LOG IN WITH GITHUB
+                <GithubOutlined className={cls.icon} />
+                Login with GitHub
             </Button>
         </div>
     )

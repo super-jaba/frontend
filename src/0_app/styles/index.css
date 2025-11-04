@@ -1,4 +1,4 @@
-@import "variables.css";
+@import 'variables.css';
 
 * {
     box-sizing: border-box;
@@ -7,5 +7,5 @@
 }
 
 body {
-    background:  #e6e6e6;
+    background: #f1f1f1;
 }
