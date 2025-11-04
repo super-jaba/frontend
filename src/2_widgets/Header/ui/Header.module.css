@@ -1,0 +1,21 @@
+.header {
+    background-color: white;
+    height: var(--header-height);
+    box-shadow: 0 0 20px rgba(0,0,0,0.19)
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: 10px;
+    height: 100%;
+
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+}
+

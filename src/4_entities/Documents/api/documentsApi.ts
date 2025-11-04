@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { AUTH_TOKEN, BASE_URL } from '@/5_shared/lib/global.ts'
+import { getAccessToken, BASE_URL } from '@/5_shared/lib/global.ts'
 import type { Document, ListDocumentsResponse } from '../model/types'
 
 export const documentsAPI = createApi({
@@ -11,18 +11,18 @@ export const documentsAPI = createApi({
             query: () => ({
                 url: '',
                 headers: {
-                    Authorization: `Bearer ${AUTH_TOKEN}`,
+                    Authorization: `Bearer ${getAccessToken()}`,
                 },
             }),
             transformResponse: (data: ListDocumentsResponse) => data.documents,
             providesTags: ['Document'],
         }),
-        uploadDocument: builder.mutation({
+        uploadDocument: builder.mutation<Document, FormData>({
             query: (body) => ({
                 url: '/upload',
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${AUTH_TOKEN}`,
+                    Authorization: `Bearer ${getAccessToken()}`,
                 },
                 body: body,
             }),
