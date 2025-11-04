@@ -29,11 +29,11 @@ export const Document = (props: Props) => {
             <Typography>{document.title || 'Document'}</Typography>
             <Typography>{formatDate(document.created_at)}</Typography>
             <Flex justify="space-between" align="center">
-                <Text 
-                    strong 
-                    style={{ 
+                <Text
+                    strong
+                    style={{
                         textTransform: 'uppercase',
-                        color: getStatusColor(document.processing_status)
+                        color: getStatusColor(document.processing_status),
                     }}
                 >
                     {document.processing_status}
