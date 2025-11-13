@@ -1,6 +1,7 @@
 import type { Document as IDocument } from '../model/types'
 import { Card, Typography, Flex } from 'antd'
 import { formatDate } from '@/5_shared/lib/utls/formatDate'
+import cls from './Document.module.css'
 
 const { Link, Text } = Typography
 
@@ -25,7 +26,7 @@ export const Document = (props: Props) => {
     const { document } = props
 
     return (
-        <Card>
+        <Card className={cls.documentCard}>
             <Typography>{document.title || 'Document'}</Typography>
             <Typography>{formatDate(document.created_at)}</Typography>
             <Flex justify="space-between" align="center">
