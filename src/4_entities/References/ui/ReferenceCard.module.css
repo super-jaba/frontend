@@ -1,0 +1,13 @@
+.referenceCard {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.referenceCard :global(.ant-card-body) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
