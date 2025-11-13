@@ -17,11 +17,17 @@ export const documentsAPI = createApi({
             transformResponse: (data: ListDocumentsResponse) => data.documents,
             providesTags: ['Document'],
         }),
-        uploadDocument: builder.mutation<Document, { file: File; extract_after_upload: boolean }>({
+        uploadDocument: builder.mutation<
+            Document,
+            { file: File; extract_after_upload: boolean }
+        >({
             query: ({ file, extract_after_upload }) => {
                 const formData = new FormData()
                 formData.append('file', file)
-                formData.append('extract_after_upload', String(extract_after_upload))
+                formData.append(
+                    'extract_after_upload',
+                    String(extract_after_upload),
+                )
                 return {
                     url: '/upload',
                     method: 'POST',

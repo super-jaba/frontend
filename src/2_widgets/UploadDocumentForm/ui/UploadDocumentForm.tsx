@@ -11,7 +11,8 @@ const { Dragger } = Upload
 
 export const UploadDocumentForm = () => {
     const [extractAfter, setExtractAfter] = useState(false)
-    const { draggerProps, onClick, contextHolder, isLoading } = useUpload(extractAfter)
+    const { draggerProps, onClick, contextHolder, isLoading } =
+        useUpload(extractAfter)
 
     return (
         <div className={cls.uploadDocumentForm}>
@@ -27,7 +28,13 @@ export const UploadDocumentForm = () => {
                 <Button className={cls.button} onClick={onClick}>
                     {isLoading ? <Loader size="small" /> : 'Upload'}
                 </Button>
-                <Checkbox className={cls.checkbox} checked={extractAfter} onChange={() => setExtractAfter(!extractAfter)}>Extract after</Checkbox>
+                <Checkbox
+                    className={cls.checkbox}
+                    checked={extractAfter}
+                    onChange={() => setExtractAfter(!extractAfter)}
+                >
+                    Extract after
+                </Checkbox>
             </div>
             {contextHolder}
         </div>

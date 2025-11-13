@@ -14,15 +14,15 @@ export const ListDocuments = () => {
             <Title level={5}>My documents</Title>
             {isLoading && <Loader size="large" />}
             <div className={cls.listDocuments}>
-            {documentsList && (
-                <Row gutter={[8, 8]}>
-                    {documentsList.map((document) => (
-                        <Col key={document.id}>
-                            <Document document={document} />
-                        </Col>
-                    ))}
-                </Row>
-            )}
+                {documentsList && (
+                    <Row gutter={[8, 8]}>
+                        {documentsList.map((document) => (
+                            <Col key={document.id}>
+                                <Document document={document} />
+                            </Col>
+                        ))}
+                    </Row>
+                )}
             </div>
         </div>
     )
