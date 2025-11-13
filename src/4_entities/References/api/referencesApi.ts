@@ -9,7 +9,13 @@ import type {
 
 export const referencesAPI = createApi({
     reducerPath: 'referencesAPI',
-    baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}/references` }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: `${BASE_URL}/references`,
+        prepareHeaders: (headers) => {
+            headers.set('ngrok-skip-browser-warning', 'true')
+            return headers
+        },
+    }),
     tagTypes: ['Reference'],
     endpoints: (builder) => ({
         listReferences: builder.query<

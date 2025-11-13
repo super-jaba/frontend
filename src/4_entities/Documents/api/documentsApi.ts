@@ -4,7 +4,13 @@ import type { Document, ListDocumentsResponse } from '../model/types'
 
 export const documentsAPI = createApi({
     reducerPath: 'documentsAPI',
-    baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}/documents` }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: `${BASE_URL}/documents`,
+        prepareHeaders: (headers) => {
+            headers.set('ngrok-skip-browser-warning', 'true')
+            return headers
+        },
+    }),
     tagTypes: ['Document'],
     endpoints: (builder) => ({
         getDocument: builder.query<Document, string>({

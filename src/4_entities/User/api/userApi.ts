@@ -3,7 +3,13 @@ import { BASE_URL } from '@/5_shared/lib/global.ts'
 
 export const userAPI = createApi({
     reducerPath: 'userApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}` }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: `${BASE_URL}`,
+        prepareHeaders: (headers) => {
+            headers.set('ngrok-skip-browser-warning', 'true')
+            return headers
+        },
+    }),
     endpoints: (builder) => ({
         loginWithGithub: builder.mutation<{ access_token: string }, string>({
             query: (code) => ({
