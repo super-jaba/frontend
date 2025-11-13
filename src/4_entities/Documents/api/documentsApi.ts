@@ -7,6 +7,14 @@ export const documentsAPI = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}/documents` }),
     tagTypes: ['Document'],
     endpoints: (builder) => ({
+        getDocument: builder.query<Document, string>({
+            query: (id) => ({
+                url: `/${id}`,
+                headers: {
+                    Authorization: `Bearer ${getAccessToken()}`,
+                },
+            }),
+        }),
         listDocuments: builder.query<Document[], void>({
             query: () => ({
                 url: '',
@@ -43,6 +51,7 @@ export const documentsAPI = createApi({
 })
 
 export const {
+    useGetDocumentQuery,
     useListDocumentsQuery: useListDocuments,
     useUploadDocumentMutation: useUploadDocument,
 } = documentsAPI

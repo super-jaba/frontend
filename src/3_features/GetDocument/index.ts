@@ -1,0 +1,1 @@
+export { useGetDocument } from './lib/useGetDocument'

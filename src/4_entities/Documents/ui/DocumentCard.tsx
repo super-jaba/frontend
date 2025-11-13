@@ -1,7 +1,7 @@
 import type { Document as IDocument } from '../model/types'
 import { Card, Typography, Flex } from 'antd'
 import { formatDate } from '@/5_shared/lib/utls/formatDate'
-import cls from './Document.module.css'
+import cls from './DocumentCard.module.css'
 
 const { Link, Text } = Typography
 
@@ -22,7 +22,7 @@ const getStatusColor = (status: string | null): string => {
     }
 }
 
-export const Document = (props: Props) => {
+export const DocumentCard = (props: Props) => {
     const { document } = props
 
     return (

@@ -1,6 +1,6 @@
 import { Row, Col, Typography } from 'antd'
 
-import { Document, useListDocuments } from '@/4_entities/Documents'
+import { DocumentCard, useListDocuments } from '@/4_entities/Documents'
 import { Loader } from '@/5_shared/ui/Loader/Loader'
 import cls from './ListDocuments.module.css'
 
@@ -18,7 +18,7 @@ export const ListDocuments = () => {
                     <Row gutter={[8, 8]}>
                         {documentsList.map((document) => (
                             <Col key={document.id}>
-                                <Document document={document} />
+                                <DocumentCard document={document} />
                             </Col>
                         ))}
                     </Row>

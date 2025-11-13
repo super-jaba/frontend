@@ -1,2 +1,2 @@
-export { useListDocuments, useUploadDocument } from './api/documentsApi'
-export { Document } from './ui/Document'
+export { useListDocuments, useUploadDocument, useGetDocumentQuery } from './api/documentsApi'
+export { DocumentCard } from './ui/DocumentCard.tsx'
