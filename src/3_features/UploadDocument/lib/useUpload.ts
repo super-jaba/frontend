@@ -5,7 +5,7 @@ import type { UploadDocumentError } from '@/4_entities/Documents/model/types.ts'
 import { validatePDFFile } from '@/5_shared/lib/utls/validateFile'
 
 // think about how to make hook easier and more readable
-export const useUpload = () => {
+export const useUpload = (extractAfter: boolean = false) => {
     const [file, setFile] = useState<File | null>(null)
     const [fileList, setFileList] = useState<UploadFile[]>([])
     const [messageApi, contextHolder] = message.useMessage()
@@ -35,9 +35,7 @@ export const useUpload = () => {
             messageApi.error('Please upload a PDF file')
             return false
         }
-        const formData = new FormData()
-        formData.append('file', file)
-        useUploadFile(formData)
+        useUploadFile({ file, extract_after_upload: extractAfter })
             .unwrap()
             .then(() => {
                 messageApi.success('File uploaded successfully')
