@@ -34,7 +34,7 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
     [AppRoutes.DOCUMENTS]: {
         path: RoutePath.documents,
         element: <DocumentsPage />,
-        isProtected: false,
+        isProtected: true,
     },
     [AppRoutes.DOCUMENT]: {
         path: RoutePath.document,

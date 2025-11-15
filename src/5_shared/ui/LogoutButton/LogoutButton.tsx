@@ -1,4 +1,5 @@
 import { Button } from 'antd'
+import { LogoutOutlined } from '@ant-design/icons'
 import { removeAccessToken } from '@/5_shared/lib/global'
 
 export default function LogoutButton() {
@@ -7,5 +8,9 @@ export default function LogoutButton() {
         window.location.href = '/'
     }
 
-    return <Button onClick={handleLogout}>Logout</Button>
+    return (
+        <Button onClick={handleLogout} icon={<LogoutOutlined />}>
+            Logout
+        </Button>
+    )
 }
