@@ -99,6 +99,7 @@
 @media (max-width: 768px) {
     .nav {
         padding: 10px 1rem;
+        max-width: 95%;
     }
 
     /* Hide desktop navigation on mobile */
@@ -117,6 +118,7 @@
 @media (max-width: 480px) {
     .nav {
         padding: 10px 1rem;
+        max-width: 95%;
     }
 
     .linkText {
