@@ -34,7 +34,8 @@ export const referencesAPI = createApi({
                     Authorization: `Bearer ${getAccessToken()}`,
                 },
             }),
-            transformResponse: (data: ListReferencesResponse) => data.references,
+            transformResponse: (data: ListReferencesResponse) =>
+                data.references,
             providesTags: ['Reference'],
         }),
         createReference: builder.mutation<Reference, CreateReferenceDto>({
@@ -72,4 +73,3 @@ export const {
     useCreateReferenceMutation: useCreateReference,
     useUpdateReferenceMutation: useUpdateReference,
 } = referencesAPI
-

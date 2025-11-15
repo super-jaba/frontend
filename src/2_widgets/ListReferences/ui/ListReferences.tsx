@@ -13,7 +13,7 @@ interface Props {
 export const ListReferences = (props?: Props) => {
     const { documentId } = props || {}
     const { data: referencesList, isLoading } = useListReferences(
-        documentId ? { document_id: documentId } : undefined
+        documentId ? { document_id: documentId } : undefined,
     )
 
     return (
@@ -24,7 +24,11 @@ export const ListReferences = (props?: Props) => {
                 {referencesList && (
                     <Row gutter={[8, 8]} align="stretch">
                         {referencesList.map((reference) => (
-                            <Col key={reference.id} span={8} style={{ display: 'flex' }}>
+                            <Col
+                                key={reference.id}
+                                span={8}
+                                style={{ display: 'flex' }}
+                            >
                                 <ReferenceCard reference={reference} />
                             </Col>
                         ))}
@@ -34,4 +38,3 @@ export const ListReferences = (props?: Props) => {
         </div>
     )
 }
-

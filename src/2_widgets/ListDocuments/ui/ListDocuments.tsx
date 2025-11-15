@@ -14,9 +14,10 @@ export const ListDocuments = () => {
             <Title level={5}>My documents</Title>
             {isLoading && <Loader size="large" />}
             <div className={cls.listDocuments}>
-                {documentsList && documentsList.map((document) => (
-                    <DocumentCard key={document.id} document={document} />
-                ))}
+                {documentsList &&
+                    documentsList.map((document) => (
+                        <DocumentCard key={document.id} document={document} />
+                    ))}
             </div>
         </div>
     )

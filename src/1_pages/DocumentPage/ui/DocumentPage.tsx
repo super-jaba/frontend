@@ -14,24 +14,39 @@ export const DocumentPage = () => {
         return <div>Document ID not found</div>
     }
 
-    const { data: documentData, isLoading: isLoadingDocument } = useGetDocument(id)
+    const { data: documentData, isLoading: isLoadingDocument } =
+        useGetDocument(id)
 
-    return <div className={cls.documentPage}>
-        <div>
-            {
-                isLoadingDocument ? <Loader size="large" /> : (
+    return (
+        <div className={cls.documentPage}>
+            <div>
+                {isLoadingDocument ? (
+                    <Loader size="large" />
+                ) : (
                     <>
                         <div className={cls.documentInfo}>
                             <div>
-                                <Typography.Title level={5}>{documentData?.title || 'Document'}</Typography.Title>
-                                {documentData?.location && <Typography.Link href={documentData.location} target="_blank" rel="noopener noreferrer">View PDF</Typography.Link>}
+                                <Typography.Title level={5}>
+                                    {documentData?.title || 'Document'}
+                                </Typography.Title>
+                                {documentData?.location && (
+                                    <Typography.Link
+                                        href={documentData.location}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        View PDF
+                                    </Typography.Link>
+                                )}
                             </div>
-                            <Typography.Text>{documentData?.processing_status}</Typography.Text>
+                            <Typography.Text>
+                                {documentData?.processing_status}
+                            </Typography.Text>
                         </div>
                         <ListReferences documentId={id} />
                     </>
-                )
-            }
+                )}
+            </div>
         </div>
-    </div>
+    )
 }
