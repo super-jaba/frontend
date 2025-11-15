@@ -11,13 +11,85 @@
     max-width: 1200px;
 }
 
-.documentInfo {
-    width: 100%;
+.documentHeader {
+    padding: 0 0 2rem 0;
+    margin-bottom: 2rem;
+}
+
+.headerTop {
     display: flex;
     justify-content: space-between;
-    gap: var(--basic-gap);
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
 
-    background-color: #ffffff;
-    padding: 1rem;
-    border-radius: 0.5rem;
+.titleSection {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.titleIcon {
+    font-size: 2rem;
+    color: #1890ff;
+}
+
+.title {
+    margin: 0 !important;
+    font-weight: 600 !important;
+    color: #262626;
+}
+
+.statusTag {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.25rem 1rem;
+    border: none;
+    border-radius: 6px;
+}
+
+.metadata {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    margin-bottom: 0.75rem;
+}
+
+.metadataIcon {
+    font-size: 1.25rem;
+    color: #8c8c8c;
+    cursor: help;
+    transition: color 0.2s;
+}
+
+.metadataIcon:hover {
+    color: #1890ff;
+}
+
+.pdfLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    background-color: #e6f7ff;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.pdfLink:hover {
+    background-color: #bae7ff;
+    transform: translateY(-1px);
+}
+
+.errorMessage {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: #fff2f0;
+    border: 1px solid #ffccc7;
+    border-radius: 6px;
 }
