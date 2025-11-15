@@ -1,19 +1,22 @@
-import { HomePage } from '@/1_pages/HomePage'
+import { DocumentsPage } from '@/1_pages/DocumentsPage'
 import { DocumentPage } from '@/1_pages/DocumentPage'
 
 import type { RouteProps } from 'react-router-dom'
 import { LoginPage } from '@/1_pages/LoginPage'
+import { Navigate } from 'react-router-dom'
 
 export const AppRoutes = {
-    HOME: 'home',
+    DOCUMENTS: 'documents',
     DOCUMENT: 'document',
     LOGIN: 'login',
+    INDEX: 'index',
 } as const
 
 export type AppRoutes = (typeof AppRoutes)[keyof typeof AppRoutes]
 
 export const RoutePath: Record<AppRoutes, string> = {
-    [AppRoutes.HOME]: '/',
+    [AppRoutes.INDEX]: '/',
+    [AppRoutes.DOCUMENTS]: '/documents',
     [AppRoutes.DOCUMENT]: '/documents/:id',
     [AppRoutes.LOGIN]: '/login',
 }
@@ -23,9 +26,14 @@ type AppRouteProps = RouteProps & {
 }
 
 export const routeConfig: Record<AppRoutes, AppRouteProps> = {
-    [AppRoutes.HOME]: {
-        path: RoutePath.home,
-        element: <HomePage />,
+    [AppRoutes.INDEX]: {
+        path: RoutePath.index,
+        element: <Navigate to={RoutePath.documents} replace />,
+        isProtected: false,
+    },
+    [AppRoutes.DOCUMENTS]: {
+        path: RoutePath.documents,
+        element: <DocumentsPage />,
         isProtected: false,
     },
     [AppRoutes.DOCUMENT]: {

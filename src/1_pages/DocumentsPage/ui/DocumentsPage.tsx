@@ -1,10 +1,10 @@
 import { ListDocuments } from '@/2_widgets/ListDocuments'
 import { UploadDocumentForm } from '@/2_widgets/UploadDocumentForm'
-import cls from './HomePage.module.css'
+import cls from './DocumentsPage.module.css'
 
-export const HomePage = () => {
+export const DocumentsPage = () => {
     return (
-        <div className={cls.homePage}>
+        <div className={cls.documentsPage}>
             <UploadDocumentForm />
             <ListDocuments />
         </div>
