@@ -5,4 +5,5 @@
     flex-direction: column;
     padding: 1rem;
     gap: var(--basic-gap);
+    min-height: calc(100vh - var(--header-height));
 }

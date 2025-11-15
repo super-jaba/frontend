@@ -1,4 +1,4 @@
-import { Row, Col, Typography } from 'antd'
+import { Typography } from 'antd'
 
 import { DocumentCard, useListDocuments } from '@/4_entities/Documents'
 import { Loader } from '@/5_shared/ui/Loader/Loader'
@@ -10,19 +10,13 @@ export const ListDocuments = () => {
     const { data: documentsList, isLoading } = useListDocuments()
 
     return (
-        <div>
+        <div className={cls.listDocumentsContainer}>
             <Title level={5}>My documents</Title>
             {isLoading && <Loader size="large" />}
             <div className={cls.listDocuments}>
-                {documentsList && (
-                    <Row gutter={[8, 8]}>
-                        {documentsList.map((document) => (
-                            <Col key={document.id}>
-                                <DocumentCard document={document} />
-                            </Col>
-                        ))}
-                    </Row>
-                )}
+                {documentsList && documentsList.map((document) => (
+                    <DocumentCard key={document.id} document={document} />
+                ))}
             </div>
         </div>
     )
