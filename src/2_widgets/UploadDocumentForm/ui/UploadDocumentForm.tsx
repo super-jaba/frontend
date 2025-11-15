@@ -16,7 +16,7 @@ export const UploadDocumentForm = () => {
 
     return (
         <div className={cls.uploadDocumentForm}>
-            <Dragger style={{ backgroundColor: 'white' }} {...draggerProps}>
+            <Dragger className={cls.dragger} {...draggerProps}>
                 <p className="ant-upload-drag-icon">
                     <InboxOutlined />
                 </p>

@@ -4,6 +4,11 @@
     align-items: center;
     gap: var(--small-gap);
     flex-direction: column;
+    width: 100%;
+}
+
+.dragger {
+    width: 100% !important;
 }
 
 .button {
