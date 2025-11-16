@@ -1,7 +1,12 @@
 import { Typography } from 'antd'
 
-import { ReferenceCard, useListReferences } from '@/4_entities/References'
-import { Loader } from '@/5_shared/ui/Loader/Loader'
+import {
+    ReferenceCard,
+    useListReferences,
+    type Reference,
+} from '@/4_entities/References'
+import { useInfiniteScroll } from '@/5_shared/lib/hooks/useInfiniteScroll'
+import { InfiniteList } from '@/5_shared/ui/InfiniteList'
 import cls from './ListReferences.module.css'
 
 const { Title } = Typography
@@ -14,25 +19,31 @@ interface Props {
 
 export const ListReferences = (props?: Props) => {
     const { documentId, hideTitle, actions } = props || {}
-    const { data: referencesList, isLoading } = useListReferences(
-        documentId ? { document_id: documentId } : undefined,
-    )
+
+    const infiniteScroll = useInfiniteScroll<Reference>({
+        queryFn: useListReferences,
+        queryArgs: documentId ? { document_id: documentId } : {},
+        limit: 20,
+        extractData: (result) => result,
+    })
 
     return (
         <div className={cls.listReferencesContainer}>
             {!hideTitle && <Title level={5}>References</Title>}
             {actions && <div className={cls.actions}>{actions}</div>}
-            {isLoading && <Loader size="large" />}
-            {referencesList && (
-                <div className={cls.listReferences}>
-                    {referencesList.map((reference) => (
-                        <ReferenceCard
-                            key={reference.id}
-                            reference={reference}
-                        />
-                    ))}
-                </div>
-            )}
+            <InfiniteList
+                data={infiniteScroll.data}
+                renderItem={(reference) => (
+                    <ReferenceCard reference={reference} />
+                )}
+                isLoading={infiniteScroll.isLoading}
+                isFetchingMore={infiniteScroll.isFetchingMore}
+                hasMore={infiniteScroll.hasMore}
+                observerRef={infiniteScroll.observerRef}
+                keyExtractor={(reference) => reference.id}
+                emptyMessage="No references found"
+                className={cls.listReferences}
+            />
         </div>
     )
 }
