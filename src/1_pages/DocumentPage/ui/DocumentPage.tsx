@@ -24,8 +24,11 @@ export const DocumentPage = () => {
         return <div>Document ID not found</div>
     }
 
-    const { data: documentData, isLoading: isLoadingDocument } =
-        useGetDocument(id)
+    const {
+        data: documentData,
+        isLoading: isLoadingDocument,
+        refetch,
+    } = useGetDocument(id)
 
     const [extractReferences, { isLoading: isExtracting }] =
         useExtractReferences()
@@ -36,6 +39,8 @@ export const DocumentPage = () => {
         try {
             await extractReferences(id).unwrap()
             message.success('References extraction started successfully')
+            // Refetch document data to show updated status
+            refetch()
         } catch (error) {
             message.error('Failed to start references extraction')
         }

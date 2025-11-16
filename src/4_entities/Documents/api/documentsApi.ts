@@ -20,6 +20,7 @@ export const documentsAPI = createApi({
                     Authorization: `Bearer ${getAccessToken()}`,
                 },
             }),
+            providesTags: (result, error, id) => [{ type: 'Document', id }],
         }),
         listDocuments: builder.query<Document[], void>({
             query: () => ({
