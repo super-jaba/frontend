@@ -1,5 +1,9 @@
 import { Button, Typography, Drawer } from 'antd'
-import { FileTextOutlined, LoginOutlined, MenuOutlined } from '@ant-design/icons'
+import {
+    FileTextOutlined,
+    LoginOutlined,
+    MenuOutlined,
+} from '@ant-design/icons'
 import { Link } from 'react-router'
 import { useState } from 'react'
 
@@ -33,7 +37,9 @@ export const Header = () => {
                         }}
                     >
                         <FileTextOutlined className={cls.icon} />
-                        <Typography.Text className={cls.linkText}>Documents</Typography.Text>
+                        <Typography.Text className={cls.linkText}>
+                            Documents
+                        </Typography.Text>
                     </Link>
                 </div>
 
@@ -93,7 +99,11 @@ export const Header = () => {
                                 }}
                                 onClick={closeDrawer}
                             >
-                                <Button type="primary" icon={<LoginOutlined />} block>
+                                <Button
+                                    type="primary"
+                                    icon={<LoginOutlined />}
+                                    block
+                                >
                                     Login
                                 </Button>
                             </Link>

@@ -12,4 +12,3 @@ export const getStatusColor = (status: string | null): string => {
             return '#8c8c8c' // secondary gray
     }
 }
-

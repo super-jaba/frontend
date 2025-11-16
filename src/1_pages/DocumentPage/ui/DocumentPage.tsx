@@ -2,9 +2,10 @@ import { useParams } from 'react-router-dom'
 
 import { useGetDocument } from '@/3_features/GetDocument'
 import { ListReferences } from '@/2_widgets/ListReferences'
+import { useExtractReferences } from '@/4_entities/Documents'
 
 import cls from './DocumentPage.module.css'
-import { Typography, Tag, Tooltip } from 'antd'
+import { Typography, Tag, Tooltip, Button, message } from 'antd'
 import { Loader } from '@/5_shared/ui/Loader/Loader'
 import { formatDate } from '@/5_shared/lib/utls/formatDate'
 import { getStatusColor } from '@/5_shared/lib/utls/getStatusColor'
@@ -12,6 +13,7 @@ import {
     FileTextOutlined,
     ClockCircleOutlined,
     EditOutlined,
+    ReloadOutlined,
 } from '@ant-design/icons'
 
 export const DocumentPage = () => {
@@ -23,6 +25,20 @@ export const DocumentPage = () => {
 
     const { data: documentData, isLoading: isLoadingDocument } =
         useGetDocument(id)
+
+    const [extractReferences, { isLoading: isExtracting }] =
+        useExtractReferences()
+
+    const handleExtractReferences = async () => {
+        if (!id) return
+
+        try {
+            await extractReferences(id).unwrap()
+            message.success('References extraction started successfully')
+        } catch (error) {
+            message.error('Failed to start references extraction')
+        }
+    }
 
     return (
         <div className={cls.documentPage}>
@@ -41,18 +57,35 @@ export const DocumentPage = () => {
                                         level={2}
                                         className={cls.title}
                                     >
-                                        {documentData?.title || 'Untitled Document'}
+                                        {documentData?.title ||
+                                            'Untitled Document'}
                                     </Typography.Title>
                                 </div>
-                                <Tag
-                                    color={getStatusColor(
-                                        documentData?.processing_status || null
+                                <div className={cls.statusActions}>
+                                    <Tag
+                                        color={getStatusColor(
+                                            documentData?.processing_status ||
+                                                null,
+                                        )}
+                                        className={cls.statusTag}
+                                    >
+                                        {documentData?.processing_status?.toUpperCase() ||
+                                            'UNKNOWN'}
+                                    </Tag>
+                                    {documentData?.processing_status !==
+                                        'queued' && (
+                                        <Tooltip title="Extract references. This will delete all the existing references">
+                                            <Button
+                                                type="text"
+                                                icon={<ReloadOutlined />}
+                                                onClick={
+                                                    handleExtractReferences
+                                                }
+                                                loading={isExtracting}
+                                            />
+                                        </Tooltip>
                                     )}
-                                    className={cls.statusTag}
-                                >
-                                    {documentData?.processing_status?.toUpperCase() ||
-                                        'UNKNOWN'}
-                                </Tag>
+                                </div>
                             </div>
 
                             <div className={cls.metadata}>

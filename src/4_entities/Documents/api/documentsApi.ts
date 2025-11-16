@@ -53,6 +53,16 @@ export const documentsAPI = createApi({
             },
             invalidatesTags: ['Document'],
         }),
+        extractReferences: builder.mutation<Document, string>({
+            query: (documentId) => ({
+                url: `/${documentId}/extract-references`,
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${getAccessToken()}`,
+                },
+            }),
+            invalidatesTags: ['Document'],
+        }),
     }),
 })
 
@@ -60,4 +70,5 @@ export const {
     useGetDocumentQuery,
     useListDocumentsQuery: useListDocuments,
     useUploadDocumentMutation: useUploadDocument,
+    useExtractReferencesMutation: useExtractReferences,
 } = documentsAPI
