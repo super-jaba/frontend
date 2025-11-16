@@ -1,9 +1,39 @@
-.listReferences {
-    max-width: 900px;
+.listReferencesContainer {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: var(--basic-gap);
+}
+
+.listReferences {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--basic-gap);
+    width: 100%;
+}
+
+@media (min-width: 1200px) {
+    .listReferences {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+    .listReferences {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+    .listReferences {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 599px) {
+    .listReferences {
+        grid-template-columns: 1fr;
+    }
 }

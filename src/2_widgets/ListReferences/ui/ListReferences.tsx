@@ -1,4 +1,4 @@
-import { Row, Col, Typography } from 'antd'
+import { Typography } from 'antd'
 
 import { ReferenceCard, useListReferences } from '@/4_entities/References'
 import { Loader } from '@/5_shared/ui/Loader/Loader'
@@ -17,24 +17,19 @@ export const ListReferences = (props?: Props) => {
     )
 
     return (
-        <div>
+        <div className={cls.listReferencesContainer}>
             <Title level={5}>References</Title>
             {isLoading && <Loader size="large" />}
-            <div className={cls.listReferences}>
-                {referencesList && (
-                    <Row gutter={[8, 8]} align="stretch">
-                        {referencesList.map((reference) => (
-                            <Col
-                                key={reference.id}
-                                span={8}
-                                style={{ display: 'flex' }}
-                            >
-                                <ReferenceCard reference={reference} />
-                            </Col>
-                        ))}
-                    </Row>
-                )}
-            </div>
+            {referencesList && (
+                <div className={cls.listReferences}>
+                    {referencesList.map((reference) => (
+                        <ReferenceCard
+                            key={reference.id}
+                            reference={reference}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     )
 }
