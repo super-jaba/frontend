@@ -14,6 +14,7 @@ import {
     ClockCircleOutlined,
     EditOutlined,
     ReloadOutlined,
+    WarningOutlined,
 } from '@ant-design/icons'
 
 export const DocumentPage = () => {
@@ -120,7 +121,7 @@ export const DocumentPage = () => {
                                 documentData?.extraction_error && (
                                     <div className={cls.errorMessage}>
                                         <Typography.Text type="danger">
-                                            <strong>Error:</strong>{' '}
+                                            <WarningOutlined />{' '}
                                             {documentData.extraction_error}
                                         </Typography.Text>
                                     </div>
