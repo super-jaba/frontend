@@ -1,5 +1,6 @@
 import { DocumentsPage } from '@/1_pages/DocumentsPage'
 import { DocumentPage } from '@/1_pages/DocumentPage'
+import { ReferencesPage } from '@/1_pages/ReferencesPage'
 
 import type { RouteProps } from 'react-router-dom'
 import { LoginPage } from '@/1_pages/LoginPage'
@@ -8,6 +9,7 @@ import { Navigate } from 'react-router-dom'
 export const AppRoutes = {
     DOCUMENTS: 'documents',
     DOCUMENT: 'document',
+    REFERENCES: 'references',
     LOGIN: 'login',
     INDEX: 'index',
 } as const
@@ -18,6 +20,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.INDEX]: '/',
     [AppRoutes.DOCUMENTS]: '/documents',
     [AppRoutes.DOCUMENT]: '/documents/:id',
+    [AppRoutes.REFERENCES]: '/references',
     [AppRoutes.LOGIN]: '/login',
 }
 
@@ -39,6 +42,11 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
     [AppRoutes.DOCUMENT]: {
         path: RoutePath.document,
         element: <DocumentPage />,
+        isProtected: true,
+    },
+    [AppRoutes.REFERENCES]: {
+        path: RoutePath.references,
+        element: <ReferencesPage />,
         isProtected: true,
     },
     [AppRoutes.LOGIN]: {

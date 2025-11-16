@@ -3,6 +3,7 @@ import {
     FileTextOutlined,
     LoginOutlined,
     MenuOutlined,
+    LinkOutlined,
 } from '@ant-design/icons'
 import { Link } from 'react-router'
 import { useState } from 'react'
@@ -39,6 +40,17 @@ export const Header = () => {
                         <FileTextOutlined className={cls.icon} />
                         <Typography.Text className={cls.linkText}>
                             Documents
+                        </Typography.Text>
+                    </Link>
+                    <Link
+                        className={cls.link}
+                        to={{
+                            pathname: RoutePath.references,
+                        }}
+                    >
+                        <LinkOutlined className={cls.icon} />
+                        <Typography.Text className={cls.linkText}>
+                            References
                         </Typography.Text>
                     </Link>
                 </div>
@@ -87,6 +99,17 @@ export const Header = () => {
                     >
                         <FileTextOutlined className={cls.icon} />
                         <Typography.Text>Documents</Typography.Text>
+                    </Link>
+
+                    <Link
+                        className={cls.drawerLink}
+                        to={{
+                            pathname: RoutePath.references,
+                        }}
+                        onClick={closeDrawer}
+                    >
+                        <LinkOutlined className={cls.icon} />
+                        <Typography.Text>References</Typography.Text>
                     </Link>
 
                     <div className={cls.drawerAuth}>

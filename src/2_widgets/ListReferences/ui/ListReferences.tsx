@@ -8,17 +8,18 @@ const { Title } = Typography
 
 interface Props {
     documentId?: string | null
+    hideTitle?: boolean
 }
 
 export const ListReferences = (props?: Props) => {
-    const { documentId } = props || {}
+    const { documentId, hideTitle } = props || {}
     const { data: referencesList, isLoading } = useListReferences(
         documentId ? { document_id: documentId } : undefined,
     )
 
     return (
         <div className={cls.listReferencesContainer}>
-            <Title level={5}>References</Title>
+            {!hideTitle && <Title level={5}>References</Title>}
             {isLoading && <Loader size="large" />}
             {referencesList && (
                 <div className={cls.listReferences}>
