@@ -7,6 +7,10 @@
     gap: var(--basic-gap);
 }
 
+.actions {
+    margin: var(--small-gap) 0;
+}
+
 .listReferences {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

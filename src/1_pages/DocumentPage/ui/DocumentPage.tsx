@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 
 import { useGetDocument } from '@/3_features/GetDocument'
 import { ListReferences } from '@/2_widgets/ListReferences'
+import { CreateReference } from '@/2_widgets/CreateReference'
 import { useExtractReferences } from '@/4_entities/Documents'
 
 import cls from './DocumentPage.module.css'
@@ -132,7 +133,10 @@ export const DocumentPage = () => {
                                     </div>
                                 )}
                         </div>
-                        <ListReferences documentId={id} />
+                        <ListReferences
+                            documentId={id}
+                            actions={<CreateReference documentId={id} />}
+                        />
                     </>
                 )}
             </div>

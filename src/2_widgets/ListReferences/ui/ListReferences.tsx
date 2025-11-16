@@ -9,10 +9,11 @@ const { Title } = Typography
 interface Props {
     documentId?: string | null
     hideTitle?: boolean
+    actions?: React.ReactNode
 }
 
 export const ListReferences = (props?: Props) => {
-    const { documentId, hideTitle } = props || {}
+    const { documentId, hideTitle, actions } = props || {}
     const { data: referencesList, isLoading } = useListReferences(
         documentId ? { document_id: documentId } : undefined,
     )
@@ -20,6 +21,7 @@ export const ListReferences = (props?: Props) => {
     return (
         <div className={cls.listReferencesContainer}>
             {!hideTitle && <Title level={5}>References</Title>}
+            {actions && <div className={cls.actions}>{actions}</div>}
             {isLoading && <Loader size="large" />}
             {referencesList && (
                 <div className={cls.listReferences}>
