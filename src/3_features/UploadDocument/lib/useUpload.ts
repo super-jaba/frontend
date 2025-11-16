@@ -58,5 +58,6 @@ export const useUpload = (extractAfter: boolean = false) => {
         onClick,
         contextHolder,
         isLoading,
+        hasFile: file !== null,
     }
 }

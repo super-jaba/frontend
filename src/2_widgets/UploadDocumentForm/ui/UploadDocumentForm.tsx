@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Button, Upload, Checkbox } from 'antd'
+import { Button, Upload, Checkbox, Tooltip } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
 
 import cls from './UploadDocumentForm.module.css'
@@ -11,7 +11,7 @@ const { Dragger } = Upload
 
 export const UploadDocumentForm = () => {
     const [extractAfter, setExtractAfter] = useState(false)
-    const { draggerProps, onClick, contextHolder, isLoading } =
+    const { draggerProps, onClick, contextHolder, isLoading, hasFile } =
         useUpload(extractAfter)
 
     return (
@@ -25,9 +25,17 @@ export const UploadDocumentForm = () => {
                 </p>
             </Dragger>
             <div className={cls.controlsContainer}>
-                <Button className={cls.button} onClick={onClick}>
-                    {isLoading ? <Loader size="small" /> : 'Upload'}
-                </Button>
+                <Tooltip
+                    title={!hasFile ? 'Please attach a document first' : ''}
+                >
+                    <Button
+                        className={cls.button}
+                        onClick={onClick}
+                        disabled={!hasFile || isLoading}
+                    >
+                        {isLoading ? <Loader size="small" /> : 'Upload'}
+                    </Button>
+                </Tooltip>
                 <Checkbox
                     className={cls.checkbox}
                     checked={extractAfter}
