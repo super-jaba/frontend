@@ -7,8 +7,19 @@
     gap: var(--basic-gap);
 }
 
-.actions {
-    margin: var(--small-gap) 0;
+.createReference {
+    display: flex;
+    gap: var(--small-gap);
+    width: 100%;
+    align-items: center;
+}
+
+.input {
+    flex: 1;
+}
+
+.button {
+    white-space: nowrap;
 }
 
 .listReferences {

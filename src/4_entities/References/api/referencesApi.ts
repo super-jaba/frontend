@@ -25,6 +25,7 @@ export const referencesAPI = createApi({
                 limit?: number
                 document_id?: string | null
                 reference_type?: string | null
+                search?: string | null
             } | void
         >({
             query: (params) => ({
