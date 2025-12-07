@@ -1,6 +1,6 @@
 export interface Document {
     id: string
-    title?: string
+    title?: string | null
     location: string | null
     processing_status: DocumentProcessStatus | string | null
     extraction_error: string | null
