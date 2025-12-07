@@ -22,9 +22,9 @@ export const DocumentCard = (props: Props) => {
 
     return (
         <Card className={cls.documentCard} onClick={handleClick}>
-            <Typography>{document.title || 'Document'}</Typography>
-            <Typography>{formatDate(document.created_at)}</Typography>
-            <Flex justify="space-between" align="center">
+            <Text strong>{document.title || 'Document'}</Text>
+            <Text type="secondary">{formatDate(document.created_at)}</Text>
+            <Flex justify="space-between" align="center" className={cls.footer}>
                 <Text
                     strong
                     style={{

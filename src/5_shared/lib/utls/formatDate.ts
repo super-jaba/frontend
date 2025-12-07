@@ -4,7 +4,7 @@ export const formatDate = (timestamp: string) => {
     const date = new Date(timestamp)
     const options: Intl.DateTimeFormatOptions = {
         year: 'numeric',
-        month: 'long',
+        month: 'short',
         day: 'numeric',
         hour: 'numeric',
         minute: '2-digit',
