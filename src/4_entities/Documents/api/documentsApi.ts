@@ -27,6 +27,7 @@ export const documentsAPI = createApi({
             {
                 skip?: number
                 limit?: number
+                search?: string | null
             } | void
         >({
             query: (params) => ({

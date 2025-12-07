@@ -6,6 +6,10 @@
     gap: var(--basic-gap);
 }
 
+.searchInput {
+    width: 100%;
+}
+
 .listDocuments {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
