@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { Typography, Input } from 'antd'
+import { useSearchParams } from 'react-router-dom'
 
 import { DocumentCard, useListDocuments } from '@/4_entities/Documents'
 import type { Document } from '@/4_entities/Documents'
@@ -10,7 +10,12 @@ import cls from './ListDocuments.module.css'
 const { Title } = Typography
 
 export const ListDocuments = () => {
-    const [searchText, setSearchText] = useState('')
+    const [searchParams, setSearchParams] = useSearchParams()
+    const searchText = searchParams.get('search') || ''
+
+    const handleSearchChange = (value: string) => {
+        setSearchParams(value ? { search: value } : {}, { replace: true })
+    }
 
     const infiniteScroll = useInfiniteScroll<Document>({
         queryFn: useListDocuments,
@@ -27,7 +32,7 @@ export const ListDocuments = () => {
             <Input
                 placeholder="Search documents..."
                 value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
                 className={cls.searchInput}
             />
             <InfiniteList
