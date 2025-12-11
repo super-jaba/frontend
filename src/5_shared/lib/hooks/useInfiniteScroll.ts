@@ -30,6 +30,19 @@ export function useInfiniteScroll<TData>({
     const [hasMore, setHasMore] = useState(true)
     const observerRef = useRef<IntersectionObserver | null>(null)
     const loadingRef = useRef(false)
+    const prevQueryArgsRef = useRef<string>(JSON.stringify(queryArgs))
+
+    // Reset pagination when queryArgs change
+    useEffect(() => {
+        const currentQueryArgs = JSON.stringify(queryArgs)
+        if (prevQueryArgsRef.current !== currentQueryArgs) {
+            prevQueryArgsRef.current = currentQueryArgs
+            setSkip(0)
+            setAllData([])
+            setHasMore(true)
+            loadingRef.current = false
+        }
+    }, [queryArgs])
 
     // Call the query with current pagination params
     const queryResult = queryFn({
