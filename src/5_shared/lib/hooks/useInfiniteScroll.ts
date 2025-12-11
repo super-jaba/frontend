@@ -32,36 +32,42 @@ export function useInfiniteScroll<TData>({
     const loadingRef = useRef(false)
     const prevQueryArgsRef = useRef<string>(JSON.stringify(queryArgs))
 
-    // Reset pagination when queryArgs change
+    // Detect queryArgs change synchronously during render
+    const queryArgsKey = JSON.stringify(queryArgs)
+    const queryArgsChanged = prevQueryArgsRef.current !== queryArgsKey
+
+    // Compute effective skip synchronously - use 0 if args changed
+    const effectiveSkip = queryArgsChanged ? 0 : skip
+
+    // Call the query with current pagination params (uses effectiveSkip to avoid stale query)
+    const queryResult = queryFn({
+        ...queryArgs,
+        skip: effectiveSkip,
+        limit,
+    })
+
+    // Update state after render when queryArgs change
     useEffect(() => {
-        const currentQueryArgs = JSON.stringify(queryArgs)
-        if (prevQueryArgsRef.current !== currentQueryArgs) {
-            prevQueryArgsRef.current = currentQueryArgs
+        if (queryArgsChanged) {
+            prevQueryArgsRef.current = queryArgsKey
             setSkip(0)
             setAllData([])
             setHasMore(true)
             loadingRef.current = false
         }
-    }, [queryArgs])
-
-    // Call the query with current pagination params
-    const queryResult = queryFn({
-        ...queryArgs,
-        skip,
-        limit,
-    })
+    }, [queryArgsKey, queryArgsChanged])
 
     const { data: currentData, isLoading, isFetching } = queryResult
 
     // Track if this is the first load or loading more
-    const isFetchingMore = isFetching && skip > 0
+    const isFetchingMore = isFetching && effectiveSkip > 0
 
     // Update data when new results come in
     useEffect(() => {
         if (!isLoading && currentData && enabled) {
             const newItems = extractData(currentData) || []
 
-            if (skip === 0) {
+            if (effectiveSkip === 0) {
                 // First load or refresh
                 setAllData(newItems)
                 setHasMore(newItems.length >= limit)
@@ -81,7 +87,7 @@ export function useInfiniteScroll<TData>({
             }
             loadingRef.current = false
         }
-    }, [currentData, isLoading, skip, limit, enabled])
+    }, [currentData, isLoading, effectiveSkip, limit, enabled])
 
     const loadMore = useCallback(() => {
         if (!loadingRef.current && hasMore && !isLoading && enabled) {
@@ -134,7 +140,7 @@ export function useInfiniteScroll<TData>({
 
     return {
         data: allData,
-        isLoading: isLoading && skip === 0,
+        isLoading: isLoading && effectiveSkip === 0,
         isFetchingMore,
         hasMore,
         loadMore,
