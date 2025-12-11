@@ -72,6 +72,16 @@ export const documentsAPI = createApi({
             }),
             invalidatesTags: ['Document'],
         }),
+        deleteDocument: builder.mutation<void, string>({
+            query: (documentId) => ({
+                url: `/${documentId}`,
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${getAccessToken()}`,
+                },
+            }),
+            invalidatesTags: ['Document'],
+        }),
     }),
 })
 
@@ -80,4 +90,5 @@ export const {
     useListDocumentsQuery: useListDocuments,
     useUploadDocumentMutation: useUploadDocument,
     useExtractReferencesMutation: useExtractReferences,
+    useDeleteDocumentMutation: useDeleteDocument,
 } = documentsAPI

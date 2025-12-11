@@ -5,6 +5,7 @@
     transition: box-shadow 0.2s;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .documentCard :global(.ant-card-body) {
@@ -15,6 +16,24 @@
 
 .documentCard:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.moreIcon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 16px;
+    padding: 4px;
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.45);
+    transition:
+        background-color 0.2s,
+        color 0.2s;
+}
+
+.moreIcon:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+    color: rgba(0, 0, 0, 0.88);
 }
 
 .footer {
