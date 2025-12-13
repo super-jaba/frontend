@@ -48,7 +48,10 @@ export const DocumentCard = (props: Props) => {
                 >
                     <MoreOutlined
                         className={cls.moreIcon}
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                        }}
                     />
                 </Dropdown>
                 <Text strong>{document.title || 'Document'}</Text>
