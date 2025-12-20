@@ -1,16 +1,17 @@
 import { useState } from 'react'
-import { Typography, Input, Button, message, Select } from 'antd'
+import { Typography, Input, Button, Select, Tooltip } from 'antd'
 import { PlusOutlined, ClearOutlined } from '@ant-design/icons'
 
 import {
     ReferenceCard,
     useListReferences,
     useGetReferencesTypes,
-    useCreateReference,
     type Reference,
 } from '@/4_entities/References'
 import { useInfiniteScroll } from '@/5_shared/lib/hooks/useInfiniteScroll'
 import { InfiniteList } from '@/5_shared/ui/InfiniteList'
+import { ExportButton } from '@/3_features/ExportReferences'
+import { useCreateReferenceAction } from '@/3_features/CreateReference'
 import cls from './ListReferences.module.css'
 
 const { Title } = Typography
@@ -24,9 +25,12 @@ export const ListReferences = (props?: Props) => {
     const { documentId, hideTitle } = props || {}
     const [searchText, setSearchText] = useState('')
     const [selectedType, setSelectedType] = useState<string | undefined>()
+    const [isExporting, setIsExporting] = useState(false)
 
     const { data: types, isLoading: isTypesLoading } = useGetReferencesTypes()
-    const [createReference, { isLoading: isCreating }] = useCreateReference()
+    const { create, isLoading: isCreating } = useCreateReferenceAction()
+
+    const isLocked = isCreating || isExporting
 
     const infiniteScroll = useInfiniteScroll<Reference>({
         queryFn: useListReferences,
@@ -40,21 +44,9 @@ export const ListReferences = (props?: Props) => {
     })
 
     const handleCreate = async () => {
-        if (!searchText.trim()) {
-            message.warning('Please enter reference text')
-            return
-        }
-
-        try {
-            await createReference({
-                document_id: documentId,
-                original_text: searchText.trim(),
-            }).unwrap()
-
-            message.success('Reference created successfully')
+        const success = await create(documentId, searchText)
+        if (success) {
             setSearchText('')
-        } catch (error) {
-            message.error('Failed to create reference')
         }
     }
 
@@ -72,14 +64,14 @@ export const ListReferences = (props?: Props) => {
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                     className={cls.input}
-                    disabled={isCreating}
+                    disabled={isLocked}
                 />
                 <Button
                     type="primary"
                     icon={<PlusOutlined />}
                     onClick={handleCreate}
                     loading={isCreating}
-                    disabled={!searchText.trim() || isCreating}
+                    disabled={!searchText.trim() || isLocked}
                     className={cls.button}
                 >
                     Add
@@ -91,17 +83,28 @@ export const ListReferences = (props?: Props) => {
                     allowClear
                     className={cls.select}
                     loading={isTypesLoading}
+                    disabled={isLocked}
                     options={types?.map((type) => ({
                         label: type.replace(/_/g, ' '),
                         value: type,
                     }))}
                 />
-                <Button
-                    icon={<ClearOutlined />}
-                    onClick={handleClearFilters}
-                    disabled={!searchText.trim() && !selectedType}
-                    title="Clear filters"
+                <ExportButton
+                    documentId={documentId}
+                    search={searchText}
+                    referenceType={selectedType}
+                    disabled={isLocked}
+                    onExportStateChange={setIsExporting}
                 />
+                <Tooltip title="Clear filters">
+                    <Button
+                        icon={<ClearOutlined />}
+                        onClick={handleClearFilters}
+                        disabled={
+                            (!searchText.trim() && !selectedType) || isLocked
+                        }
+                    />
+                </Tooltip>
             </div>
             <InfiniteList
                 data={infiniteScroll.data}
