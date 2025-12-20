@@ -10,3 +10,10 @@
     display: flex;
     flex-direction: column;
 }
+
+.referenceType {
+    font-size: 10px;
+    line-height: 12px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
