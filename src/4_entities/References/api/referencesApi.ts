@@ -39,6 +39,14 @@ export const referencesAPI = createApi({
                 data.references,
             providesTags: ['Reference'],
         }),
+        getReferencesTypes: builder.query<string[], void>({
+            query: () => ({
+                url: '/types',
+                headers: {
+                    Authorization: `Bearer ${getAccessToken()}`,
+                },
+            }),
+        }),
         createReference: builder.mutation<Reference, CreateReferenceDto>({
             query: (body) => ({
                 url: '',
@@ -71,6 +79,7 @@ export const referencesAPI = createApi({
 
 export const {
     useListReferencesQuery: useListReferences,
+    useGetReferencesTypesQuery: useGetReferencesTypes,
     useCreateReferenceMutation: useCreateReference,
     useUpdateReferenceMutation: useUpdateReference,
 } = referencesAPI

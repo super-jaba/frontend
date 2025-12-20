@@ -56,7 +56,11 @@ export const DocumentCard = (props: Props) => {
                 </Dropdown>
                 <Text strong>{document.title || 'Document'}</Text>
                 <Text type="secondary">{formatDate(document.created_at)}</Text>
-                <Flex justify="space-between" align="center" className={cls.footer}>
+                <Flex
+                    justify="space-between"
+                    align="center"
+                    className={cls.footer}
+                >
                     <Text
                         strong
                         style={{

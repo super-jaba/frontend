@@ -18,6 +18,10 @@
     flex: 1;
 }
 
+.select {
+    min-width: 150px;
+}
+
 .button {
     white-space: nowrap;
 }

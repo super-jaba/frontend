@@ -1,5 +1,6 @@
 export {
     useListReferences,
+    useGetReferencesTypes,
     useCreateReference,
     useUpdateReference,
 } from './api/referencesApi'

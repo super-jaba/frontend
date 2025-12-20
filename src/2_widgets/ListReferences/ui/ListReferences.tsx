@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Typography, Input, Button, message } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import { Typography, Input, Button, message, Select } from 'antd'
+import { PlusOutlined, ClearOutlined } from '@ant-design/icons'
 
 import {
     ReferenceCard,
     useListReferences,
+    useGetReferencesTypes,
     useCreateReference,
     type Reference,
 } from '@/4_entities/References'
@@ -22,6 +23,9 @@ interface Props {
 export const ListReferences = (props?: Props) => {
     const { documentId, hideTitle } = props || {}
     const [searchText, setSearchText] = useState('')
+    const [selectedType, setSelectedType] = useState<string | undefined>()
+
+    const { data: types, isLoading: isTypesLoading } = useGetReferencesTypes()
     const [createReference, { isLoading: isCreating }] = useCreateReference()
 
     const infiniteScroll = useInfiniteScroll<Reference>({
@@ -29,6 +33,7 @@ export const ListReferences = (props?: Props) => {
         queryArgs: {
             ...(documentId ? { document_id: documentId } : {}),
             ...(searchText.trim() ? { search: searchText.trim() } : {}),
+            ...(selectedType ? { reference_type: selectedType } : {}),
         },
         limit: 20,
         extractData: (result) => result,
@@ -53,10 +58,9 @@ export const ListReferences = (props?: Props) => {
         }
     }
 
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            handleCreate()
-        }
+    const handleClearFilters = () => {
+        setSearchText('')
+        setSelectedType(undefined)
     }
 
     return (
@@ -67,7 +71,6 @@ export const ListReferences = (props?: Props) => {
                     placeholder="Search or add reference..."
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
-                    onKeyPress={handleKeyPress}
                     className={cls.input}
                     disabled={isCreating}
                 />
@@ -81,6 +84,24 @@ export const ListReferences = (props?: Props) => {
                 >
                     Add
                 </Button>
+                <Select
+                    placeholder="Filter by type"
+                    value={selectedType}
+                    onChange={setSelectedType}
+                    allowClear
+                    className={cls.select}
+                    loading={isTypesLoading}
+                    options={types?.map((type) => ({
+                        label: type.replace(/_/g, ' '),
+                        value: type,
+                    }))}
+                />
+                <Button
+                    icon={<ClearOutlined />}
+                    onClick={handleClearFilters}
+                    disabled={!searchText.trim() && !selectedType}
+                    title="Clear filters"
+                />
             </div>
             <InfiniteList
                 data={infiniteScroll.data}
