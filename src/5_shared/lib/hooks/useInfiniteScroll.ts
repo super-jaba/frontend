@@ -139,8 +139,8 @@ export function useInfiniteScroll<TData>({
     }, [])
 
     return {
-        data: allData,
-        isLoading: isLoading && effectiveSkip === 0,
+        data: queryArgsChanged ? [] : allData,
+        isLoading: (isLoading || isFetching) && effectiveSkip === 0,
         isFetchingMore,
         hasMore,
         loadMore,
