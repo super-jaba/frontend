@@ -3,6 +3,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .referenceCard :global(.ant-card-body) {
@@ -16,4 +17,22 @@
     line-height: 12px;
     margin-bottom: 4px;
     text-transform: uppercase;
+}
+
+.moreIcon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 16px;
+    padding: 4px;
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.45);
+    transition:
+        background-color 0.2s,
+        color 0.2s;
+}
+
+.moreIcon:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+    color: rgba(0, 0, 0, 0.88);
 }
