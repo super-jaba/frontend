@@ -21,7 +21,7 @@ export const UploadDocumentForm = () => {
                     <InboxOutlined />
                 </p>
                 <p className="ant-upload-text">
-                    Click or drag file to this area to upload PDF file
+                    Click or drag files to this area to upload PDF files
                 </p>
             </Dragger>
             <div className={cls.controlsContainer}>

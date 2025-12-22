@@ -6,7 +6,7 @@ import { validatePDFFile } from '@/5_shared/lib/utls/validateFile'
 
 // think about how to make hook easier and more readable
 export const useUpload = (extractAfter: boolean = false) => {
-    const [file, setFile] = useState<File | null>(null)
+    const [files, setFiles] = useState<File[]>([])
     const [fileList, setFileList] = useState<UploadFile[]>([])
     const [messageApi, contextHolder] = message.useMessage()
     const [useUploadFile, { isLoading }] = useUploadDocument()
@@ -15,39 +15,60 @@ export const useUpload = (extractAfter: boolean = false) => {
         const isValidate = validatePDFFile(file, messageApi)
         if (!isValidate) return false
 
-        setFileList([
+        setFileList((prev) => [
+            ...prev,
             {
-                uid: String(Date.now()),
+                uid: String(Date.now() + Math.random()),
                 name: file.name,
             },
         ])
-        setFile(file)
+        setFiles((prev) => [...prev, file])
         return false
     }
 
-    const onRemove = () => {
-        setFile(null)
-        setFileList([])
+    const onRemove = (file: UploadFile) => {
+        const index = fileList.findIndex((item) => item.uid === file.uid)
+        if (index === -1) return
+
+        setFileList((prev) => {
+            const next = [...prev]
+            next.splice(index, 1)
+            return next
+        })
+        setFiles((prev) => {
+            const next = [...prev]
+            next.splice(index, 1)
+            return next
+        })
     }
 
-    const onClick = () => {
-        if (!file) {
-            messageApi.error('Please upload a PDF file')
+    const onClick = async () => {
+        if (files.length === 0) {
+            messageApi.error('Please upload at least one PDF file')
             return false
         }
-        useUploadFile({ file, extract_after_upload: extractAfter })
-            .unwrap()
-            .then(() => {
-                messageApi.success('File uploaded successfully')
-                setFile(null)
-                setFileList([])
-            })
-            .catch((err: UploadDocumentError) => {
-                messageApi.error(err.data.detail || 'Upload failed')
-            })
+
+        try {
+            const uploadPromises = files.map((file) =>
+                useUploadFile({
+                    file,
+                    extract_after_upload: extractAfter,
+                }).unwrap(),
+            )
+
+            await Promise.all(uploadPromises)
+
+            messageApi.success('All files uploaded successfully')
+            setFiles([])
+            setFileList([])
+        } catch (err: any) {
+            const error = err as UploadDocumentError
+            messageApi.error(error.data?.detail || 'One or more uploads failed')
+        }
     }
 
     const draggerProps = {
+        multiple: true,
         beforeUpload,
         onRemove,
         fileList,
@@ -58,6 +79,6 @@ export const useUpload = (extractAfter: boolean = false) => {
         onClick,
         contextHolder,
         isLoading,
-        hasFile: file !== null,
+        hasFile: files.length > 0,
     }
 }
